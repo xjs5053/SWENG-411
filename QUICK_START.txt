@@ -1,0 +1,265 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║                                                                      ║
+║                  FILESENSE - QUICK START GUIDE                       ║
+║              AI-Powered Local File Search System                     ║
+║                                                                      ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+📦 WHAT'S IN THE BOX?
+═══════════════════════════════════════════════════════════════════════
+
+✓ FileSense Application (Python + Flask + SQLite)
+✓ Modern Web-Based Interface
+✓ Local AI Integration (Ollama)
+✓ Natural Language Search Engine
+✓ Auto-Tagging & Summarization
+✓ Complete Windows Installation Scripts
+
+
+🚀 3-MINUTE SETUP
+═══════════════════════════════════════════════════════════════════════
+
+STEP 1: Install Python (if not already installed)
+────────────────────────────────────────────────
+□ Visit: https://www.python.org/downloads/
+□ Download Python 3.8 or later
+□ Run installer
+□ ✓ CHECK "Add Python to PATH" ← IMPORTANT!
+□ Click "Install Now"
+
+
+STEP 2: Setup FileSense
+────────────────────────────────────────────────
+□ Extract FileSense folder to C:\FileSense (or anywhere)
+□ Double-click: SETUP.bat
+□ Wait 1-2 minutes for installation
+
+
+STEP 3: Install Ollama (for AI features)
+────────────────────────────────────────────────
+□ Visit: https://ollama.com/download
+□ Download Ollama for Windows
+□ Install it (automatic start)
+□ Look for Ollama icon in system tray
+
+
+STEP 4: Start FileSense
+────────────────────────────────────────────────
+□ Double-click: START_FILESENSE.bat
+□ Browser opens at http://localhost:5000
+□ You'll see the FileSense interface!
+
+
+STEP 5: Download AI Model (First Time Only)
+────────────────────────────────────────────────
+□ Click "Ollama Setup" tab in FileSense
+□ Click "Pull Model" on "Llama 3.2 (3B)"
+□ Wait 5-10 minutes for download
+□ Model ready when it says "✓ Started"
+
+
+STEP 6: Index Your Files
+────────────────────────────────────────────────
+□ Click "Indexing" tab
+□ Type a folder path (e.g., C:\Users\YourName\Documents)
+□ Or click quick buttons: Documents, Downloads, Desktop
+□ Click "Start Scan"
+□ Watch progress bar
+
+
+STEP 7: Search!
+────────────────────────────────────────────────
+□ Go to Dashboard tab
+□ Type natural query: "financial reports from last month"
+□ See AI-powered results with tags and summaries!
+
+
+═══════════════════════════════════════════════════════════════════════
+                          FILE REFERENCE
+═══════════════════════════════════════════════════════════════════════
+
+📄 SETUP.bat              → Run this first to install
+📄 START_FILESENSE.bat    → Run this every time to start app
+📄 README.md              → Full documentation
+📄 app.py                 → Main application (don't edit)
+📁 data/                  → Your database (backup this!)
+📁 static/                → Web interface files
+📁 templates/             → HTML templates
+
+
+═══════════════════════════════════════════════════════════════════════
+                     EXAMPLE SEARCH QUERIES
+═══════════════════════════════════════════════════════════════════════
+
+Try these natural language searches:
+
+📊 "financial reports from last quarter"
+📸 "photos with family from 2024"
+📝 "meeting notes with Sarah"
+💰 "budget spreadsheets over 1MB"
+📄 "PDF documents about marketing"
+📅 "files created this week"
+🔍 "Excel files with revenue data"
+
+
+═══════════════════════════════════════════════════════════════════════
+                         TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════════════
+
+❌ "Python not found"
+   → Install Python and check "Add to PATH"
+   → Restart computer
+   → Run SETUP.bat again
+
+❌ "Ollama not detected"
+   → Install Ollama from ollama.com/download
+   → Check system tray for Ollama icon
+   → Restart START_FILESENSE.bat
+
+❌ "Model pull failed"
+   → Make sure Ollama is running
+   → Check internet connection
+   → Wait and try again
+
+❌ "Port 5000 already in use"
+   → Close other applications using port 5000
+   → Or edit app.py and change port number
+
+❌ "Search returns nothing"
+   → Make sure you indexed folders first
+   → Go to Indexing tab and scan folders
+   → Wait for scan to complete
+
+
+═══════════════════════════════════════════════════════════════════════
+                        SYSTEM REQUIREMENTS
+═══════════════════════════════════════════════════════════════════════
+
+Minimum:
+  • Windows 10/11 (64-bit)
+  • Python 3.8+
+  • 4GB RAM
+  • 5GB disk space (with AI model)
+
+Recommended:
+  • Windows 11
+  • Python 3.11+
+  • 8GB RAM
+  • 10GB disk space
+  • SSD storage
+
+
+═══════════════════════════════════════════════════════════════════════
+                          OLLAMA MODELS
+═══════════════════════════════════════════════════════════════════════
+
+Choose based on your needs:
+
+🚀 Llama 3.2 (1B)
+   Size: ~1GB
+   Speed: Fast
+   Quality: Good
+   Best for: Quick tagging, low-end PCs
+
+⭐ Llama 3.2 (3B) - RECOMMENDED
+   Size: ~2GB
+   Speed: Medium
+   Quality: Great
+   Best for: Balanced performance
+
+💪 Llama 3.1 (8B)
+   Size: ~5GB
+   Speed: Slow
+   Quality: Excellent
+   Best for: Best results, high-end PCs
+
+
+═══════════════════════════════════════════════════════════════════════
+                         ADVANCED TIPS
+═══════════════════════════════════════════════════════════════════════
+
+⚡ Performance:
+   • Start with small folders to test
+   • Disable auto-summarize for large scans
+   • Use faster models for more files
+   • Index during off-hours
+
+🔐 Privacy:
+   • Everything runs locally
+   • No data sent to internet
+   • Ollama is completely offline
+   • Your files stay on your PC
+
+💾 Backup:
+   • Important: Backup the data/ folder
+   • Contains your entire database
+   • Copy before major updates
+   • Easy to restore by copying back
+
+
+═══════════════════════════════════════════════════════════════════════
+                          FEATURES OVERVIEW
+═══════════════════════════════════════════════════════════════════════
+
+✨ Natural Language Search
+   Search like you talk: "financial reports from Q3"
+
+🤖 AI Auto-Tagging
+   Automatically creates relevant tags for files
+
+📝 AI Summaries
+   Generates brief descriptions of file contents
+
+📊 Dashboard Stats
+   See indexed files, tags, and system status
+
+🏷️ Tag Management
+   View, search, and organize by tags
+
+⚙️ Flexible Settings
+   Customize AI behavior and preferences
+
+🔄 Batch Indexing
+   Scan entire folder structures at once
+
+
+═══════════════════════════════════════════════════════════════════════
+                         GETTING HELP
+═══════════════════════════════════════════════════════════════════════
+
+1. Check README.md for detailed documentation
+2. Look at Troubleshooting section above
+3. Verify Ollama is running (system tray)
+4. Check START_FILESENSE.bat window for errors
+5. Try restarting both FileSense and Ollama
+
+
+═══════════════════════════════════════════════════════════════════════
+                         NEXT STEPS
+═══════════════════════════════════════════════════════════════════════
+
+After setup:
+
+□ Index your important folders
+□ Try different search queries
+□ Explore auto-generated tags
+□ Customize settings to your needs
+□ Set up regular scanning schedule
+□ Backup your data/ folder
+
+
+═══════════════════════════════════════════════════════════════════════
+
+                    READY TO START? 🚀
+
+                1. Run SETUP.bat
+                2. Run START_FILESENSE.bat
+                3. Open http://localhost:5000
+                4. Enjoy AI-powered file search!
+
+═══════════════════════════════════════════════════════════════════════
+
+FileSense v1.0 | Created by Xavier Sutherland | Penn State CMPSC 465
+Powered by: Python • Flask • SQLite • Ollama • Llama 3.2
+
+═══════════════════════════════════════════════════════════════════════
