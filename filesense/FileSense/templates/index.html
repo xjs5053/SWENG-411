@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FileSense | AI File Steward</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">🗂️</div>
+                <div>
+                    <div class="brand-title">FileSense</div>
+                    <div class="brand-subtitle">AI File Steward</div>
+                </div>
+            </div>
+            <nav class="nav">
+                <button class="nav-link active" data-section="dashboard">Dashboard</button>
+                <button class="nav-link" data-section="search">Search</button>
+                <button class="nav-link" data-section="browser">File Browser</button>
+                <button class="nav-link" data-section="batch">Batch Operations</button>
+                <button class="nav-link" data-section="recent">Recent Files</button>
+                <button class="nav-link" data-section="tags">Tags</button>
+                <button class="nav-link" data-section="settings">Settings</button>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="status-chip" id="sidebar-ollama">Ollama • Checking…</div>
+                <div class="status-chip" id="sidebar-indexing">Indexing • Idle</div>
+            </div>
+        </aside>
+
+        <main class="content">
+            <header class="topbar">
+                <div class="searchbar">
+                    <input type="text" id="global-search" placeholder="Search by content, tags, or file names…">
+                    <button id="search-submit">Search</button>
+                </div>
+                <div class="top-status">
+                    <span class="pill" id="pill-ollama">Ollama: Checking…</span>
+                    <span class="pill" id="pill-files">Files: 0</span>
+                    <span class="pill" id="pill-tags">Tags: 0</span>
+                </div>
+            </header>
+
+            <section id="section-dashboard" class="panel active">
+                <div class="panel-header">
+                    <div>
+                        <h1>Welcome to FileSense</h1>
+                        <p>AI-powered file organization that runs locally on Windows and Linux.</p>
+                    </div>
+                    <div class="hero-actions">
+                        <button class="primary" onclick="showSection('batch')">Batch Organize</button>
+                        <button class="ghost" onclick="showSection('browser')">Open File Browser</button>
+                    </div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Files Indexed</div>
+                        <div class="stat-value" id="stat-files">0</div>
+                        <div class="stat-hint" id="stat-path"></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Tags</div>
+                        <div class="stat-value" id="stat-tags">0</div>
+                        <div class="stat-hint">AI and manual labels</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Ollama</div>
+                        <div class="stat-value" id="stat-ollama">Checking…</div>
+                        <div class="stat-hint" id="stat-models">Models: --</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Indexing</div>
+                        <div class="stat-value" id="stat-index">Idle</div>
+                        <div class="stat-hint" id="stat-progress">Start a scan to populate results</div>
+                    </div>
+                </div>
+
+                <div class="split">
+                    <div class="panel-card">
+                        <div class="panel-card-header">
+                            <div>
+                                <h3>Popular Tags</h3>
+                                <p>Click a tag to search instantly.</p>
+                            </div>
+                        </div>
+                        <div id="tags-cloud" class="chip-cloud"></div>
+                    </div>
+
+                    <div class="panel-card">
+                        <div class="panel-card-header">
+                            <div>
+                                <h3>Quick Scan</h3>
+                                <p>Select a folder to index with AI tags and summaries.</p>
+                            </div>
+                        </div>
+                        <div class="field-group">
+                            <label for="folder-path">Folder Path</label>
+                            <input id="folder-path" type="text" placeholder="/home/user/Documents or C:\\Users\\You\\Documents">
+                        </div>
+                        <div class="button-row">
+                            <button class="primary" onclick="startScan()">Start Scan</button>
+                            <button onclick="quickFolder('documents')">Documents</button>
+                            <button onclick="quickFolder('downloads')">Downloads</button>
+                            <button onclick="quickFolder('pictures')">Pictures</button>
+                        </div>
+                        <div id="indexing-status" class="progress" aria-live="polite">
+                            <div class="progress-label" id="progress-label">Idle</div>
+                            <div class="progress-bar"><span id="progress-fill"></span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-search" class="panel">
+                <div class="panel-header">
+                    <div>
+                        <h2>Search</h2>
+                        <p>Find files by name, content, tags, or AI summary.</p>
+                    </div>
+                </div>
+                <div id="search-results" class="list-grid"></div>
+            </section>
+
+            <section id="section-browser" class="panel">
+                <div class="panel-header">
+                    <div>
+                        <h2>File Browser</h2>
+                        <p>Browse indexed files with AI context.</p>
+                    </div>
+                </div>
+                <div id="file-browser" class="list-grid"></div>
+            </section>
+
+            <section id="section-batch" class="panel">
+                <div class="panel-header">
+                    <div>
+                        <h2>Batch Operations</h2>
+                        <p>Tag, summarize, and move groups of files with one click.</p>
+                    </div>
+                    <div class="hero-actions">
+                        <button onclick="categorizeSelected()" class="primary">AI Tag</button>
+                        <button onclick="moveSelected()" class="ghost">Move to Category</button>
+                    </div>
+                </div>
+                <div class="split">
+                    <div class="panel-card">
+                        <div class="panel-card-header">
+                            <div>
+                                <h3>Destination</h3>
+                                <p>Provide a category and destination root for moving files.</p>
+                            </div>
+                        </div>
+                        <div class="field-group">
+                            <label for="batch-category">Category / Folder Name</label>
+                            <input id="batch-category" type="text" placeholder="Finance" />
+                        </div>
+                        <div class="field-group">
+                            <label for="batch-destination">Destination Root</label>
+                            <input id="batch-destination" type="text" placeholder="/home/user/Documents/Sorted">
+                        </div>
+                        <div class="helper-text">FileSense will create the category folder if it does not exist.</div>
+                    </div>
+                    <div class="panel-card">
+                        <div class="panel-card-header">
+                            <div>
+                                <h3>Files</h3>
+                                <p>Select multiple files to tag or move.</p>
+                            </div>
+                            <button class="ghost" onclick="selectAllBatch(true)">Select All</button>
+                        </div>
+                        <div id="batch-list" class="list-grid compact"></div>
+                        <div id="batch-feedback" class="helper-text"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-recent" class="panel">
+                <div class="panel-header">
+                    <div>
+                        <h2>Recent Files</h2>
+                        <p>Files you last indexed or modified.</p>
+                    </div>
+                </div>
+                <div id="recent-list" class="list-grid"></div>
+            </section>
+
+            <section id="section-tags" class="panel">
+                <div class="panel-header">
+                    <div>
+                        <h2>Tag Explorer</h2>
+                        <p>Jump into content by tag.</p>
+                    </div>
+                </div>
+                <div id="tag-explorer" class="chip-cloud"></div>
+            </section>
+
+            <section id="section-settings" class="panel">
+                <div class="panel-header">
+                    <div>
+                        <h2>Settings</h2>
+                        <p>Control Ollama and automation preferences.</p>
+                    </div>
+                    <button onclick="saveSettings()" class="primary">Save</button>
+                </div>
+                <div class="settings-grid">
+                    <div class="panel-card">
+                        <h3>AI Features</h3>
+                        <label class="checkbox">
+                            <input type="checkbox" id="auto-tag" />
+                            <span>Auto-generate tags for new files</span>
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" id="auto-summarize" />
+                            <span>Auto-generate summaries (slower)</span>
+                        </label>
+                    </div>
+                    <div class="panel-card">
+                        <h3>Ollama Model</h3>
+                        <select id="ollama-model">
+                            <option value="llama3.2:3b">Llama 3.2 (3B)</option>
+                            <option value="llama3.2:1b">Llama 3.2 (1B)</option>
+                            <option value="llama3.1:8b">Llama 3.1 (8B)</option>
+                        </select>
+                        <div class="button-row">
+                            <button onclick="pullModel('llama3.2:3b')">Pull 3B</button>
+                            <button onclick="pullModel('llama3.2:1b')">Pull 1B</button>
+                            <button onclick="pullModel('llama3.1:8b')">Pull 8B</button>
+                        </div>
+                        <div class="helper-text">Model download uses the Ollama service running locally.</div>
+                    </div>
+                    <div class="panel-card">
+                        <h3>Diagnostics</h3>
+                        <button onclick="testOllama()">Test Ollama Connection</button>
+                        <div id="test-result" class="helper-text"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

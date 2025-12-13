@@ -79,28 +79,6 @@ A powerful desktop application that uses local AI (Ollama) to intelligently inde
    - "meeting notes with John"
 3. View results with AI-generated summaries and tags!
 
-### Linux Quick Start
-
-1. Ensure Python 3.8+ is installed (`python3 --version`)
-2. Install dependencies:
-   ```bash
-   cd filesense/FileSense
-   python3 -m venv .venv
-   source .venv/bin/activate
-   pip install -r requirements.txt
-   ```
-3. Start FileSense locally:
-   ```bash
-   ./START_FILESENSE.sh
-   ```
-4. Open the web UI at `http://localhost:5000`
-
-### Batch organization and moving
-
-- Use the **Batch Operations** area to select multiple files and run **AI Tag**. FileSense will call Ollama (or fall back to metadata when offline) to suggest categories and store them as tags.
-- Provide a **Category / Folder Name** plus a **Destination Root** to move selected files into grouped folders (e.g., `~/Documents/Sorted/Finance`). The database is updated automatically after the move.
-- The dashboard surfaces indexing progress, Ollama availability, and popular tags so you can quickly jump to grouped content.
-
 ## 📖 Detailed Usage
 
 ### Natural Language Search Examples
