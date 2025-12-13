@@ -1,0 +1,26 @@
+# FileSense Dependencies
+# Install with: pip install -r requirements.txt
+
+# GUI Framework
+customtkinter>=5.2.0
+
+# Database
+sqlalchemy>=2.0.0
+
+# HTTP Requests (for OLLAMA API)
+requests>=2.31.0
+
+# Image handling
+pillow>=10.0.0
+
+# File type detection
+python-magic>=0.4.27
+
+# Document processing
+PyPDF2>=3.0.0
+python-docx>=1.0.0
+openpyxl>=3.1.0
+python-pptx>=0.6.21
+
+# Text encoding detection
+chardet>=5.2.0
